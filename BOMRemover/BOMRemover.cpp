@@ -66,7 +66,8 @@ int main(int argc, char* argv[])
 		break;
 	case UTF_8:
 		std::cout << inFile << " - File type detected as UTF-8 with BOM. Saving it as " << outFile << std::endl;
-		break;
+		CopyWithoutUTF8BOM(inFile, outFile);
+		return 0;
 	case UTF_16_LE:
 		std::cerr << inFile << " - File type detected as UTF-16 Little Endian. Stopping." << std::endl;
 		break;
@@ -84,9 +85,8 @@ int main(int argc, char* argv[])
 		break;
 	}
 
-	CopyWithoutUTF8BOM(inFile, outFile);
-
-	return 0;
+	// Conversion failed.
+	exit(EXIT_FAILURE);
 }
 
 // Convert supplied path to use forward slashes
